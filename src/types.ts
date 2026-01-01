@@ -10,6 +10,10 @@ export interface Quiz {
   score: number;
 }
 
+// Types tập trung tại 1 nơi
+// - Mục tiêu: không khai báo type/interface props rải rác trong component.
+// - Giúp nhất quán và dễ refactor.
+
 // React 18: Sử dụng callback function
 // export interface LoginProps {
 //   onLogin: (email: string) => void;
@@ -17,6 +21,7 @@ export interface Quiz {
 
 // React 19: Sử dụng form action với FormData
 export interface LoginProps {
+  // action nhận FormData từ <form>, trả về Promise để React biết pending.
   action: (formData: FormData) => Promise<void>;
 }
 
@@ -26,4 +31,9 @@ export interface QuizListProps {
 
 export interface QuizItemProps {
   quiz: Quiz;
+}
+
+export interface NavbarProps {
+  user: User | null;
+  logout: () => void;
 }

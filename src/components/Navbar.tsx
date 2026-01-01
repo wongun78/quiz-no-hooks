@@ -1,11 +1,9 @@
-import type { User } from "../types";
+import type { NavbarProps } from "../types";
 
-interface Props {
-  user: User | null;
-  logout: () => void;
-}
+// Navbar UI đơn giản
+// - Props type đặt ở types.ts để tránh khai báo interface ngay trong file.
 
-const Navbar = ({ user, logout }: Props) => {
+const Navbar = ({ user, logout }: NavbarProps) => {
   return (
     <header>
       <h3>Quiz App</h3>

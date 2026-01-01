@@ -1,5 +1,9 @@
-import { useFormStatus } from "react-dom";
 import type { LoginProps } from "../types";
+import LoginForm from "./molecules/LoginForm";
+
+// UI Component
+// - Vai trò: màn Login ở mức "page section" (giữ API props gọn).
+// - Design: tách UI thành molecule/atom để dễ test + tái sử dụng.
 
 // React 18: Sử dụng onSubmit handler với loading state thủ công
 // const Login = ({ onLogin }: LoginProps) => {
@@ -21,23 +25,8 @@ import type { LoginProps } from "../types";
 
 // React 19: Sử dụng form action prop (tự động xử lý pending state)
 const Login = ({ action }: LoginProps) => {
-  return (
-    <form action={action}>
-      <input
-        name="email"
-        type="email"
-        placeholder="Email"
-        defaultValue="test@gmail.com"
-      />
-      <SubmitButton />
-    </form>
-  );
+  // Chỉ delegate cho molecule; không nhét logic ở đây.
+  return <LoginForm action={action} />;
 };
-
-// React 19: Component con có thể sử dụng useFormStatus
-function SubmitButton() {
-  const { pending } = useFormStatus();
-  return <button disabled={pending}>{pending ? "Loading..." : "Login"}</button>;
-}
 
 export default Login;
