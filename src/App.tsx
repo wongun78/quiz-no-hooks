@@ -1,35 +1,28 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import type { User } from "./types";
+import Login from "./components/Login";
+import QuizList from "./components/QuizList";
+import { fakeLogin } from "./data";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [user, setUser] = useState<User | null>(null);
+
+  // React 18: Sử dụng async function với callback
+  // const login = async (email: string) => {
+  //   const user = await fakeLogin(email);
+  //   setUser(user);
+  // };
+
+  // React 19: Sử dụng form action với FormData
+  async function loginAction(formData: FormData) {
+    const email = formData.get("email") as string;
+    const user = await fakeLogin(email);
+    setUser(user);
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <>{user ? <QuizList user={user} /> : <Login action={loginAction} />}</>
+  );
 }
 
-export default App
+export default App;
